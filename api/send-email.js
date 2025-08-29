@@ -4,26 +4,27 @@ export default async function handler(req, res) {
   }
 
   const { Resend } = await import('resend');
-  const resend = new Resend('re_e7Yd2nYU_DoJifX4HCJvZHnVvcmxm2bUG'); // Replace with your actual key
+  const resend = new Resend(process.env.RESEND_API_KEY); // safer with env vars
 
   try {
-    const { fullName, email, countryCode, phoneNumber, serviceCategory, subService, message } = req.body;
+    // Match these to your form field names
+    const { name, email, countryCode, phone, service_category, specific_service, message } = req.body;
 
     const emailContent = `
       <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${fullName}</p>
+      <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${countryCode} ${phoneNumber}</p>
-      <p><strong>Service Category:</strong> ${serviceCategory}</p>
-      <p><strong>Sub-Service:</strong> ${subService || 'Not specified'}</p>
+      <p><strong>Phone:</strong> ${countryCode || ''} ${phone || ''}</p>
+      <p><strong>Service Category:</strong> ${service_category}</p>
+      <p><strong>Sub-Service:</strong> ${specific_service || 'Not specified'}</p>
       <p><strong>Message:</strong></p>
       <p>${message || 'No message provided'}</p>
     `;
 
     await resend.emails.send({
-      from: 'contact@arrowconsolidated.com', // Replace with your verified domain
-      to: 'ali@arrowconsolidated.com.com', // Replace with where you want to receive emails
-      subject: `New Contact: ${fullName}`,
+      from: 'contact@arrowconsolidated.com', // must be a verified sender domain in Resend
+      to: 'ali@arrowconsolidated.com', // fixed typo
+      subject: `New Contact: ${name}`,
       html: emailContent,
     });
 
