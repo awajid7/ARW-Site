@@ -7213,7 +7213,7 @@ div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .link-title {
       flex-wrap: wrap;
 }
 .team-item.details .team-thumb {
-  background-color: #EC7751 !important;
+  background-color: #f9fbff !important;
   width: 500px;
 }
 @media only screen and (max-width: 1199px) {
