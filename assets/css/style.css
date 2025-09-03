@@ -103,12 +103,12 @@ html {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: ##9e9e9e33;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5em;
-  color: #4B4B4B;
+  color: ##9e9e9e33;
   overflow-x: hidden;
 }
 @media only screen and (max-width: 991px) {
@@ -6188,7 +6188,7 @@ option {
   }
 }
 .footer-section.three {
-  background: #070D26;
+  background: #FFF;
 }
 .footer-section.three .footer-widget p {
   color: #fff;
@@ -6378,7 +6378,6 @@ option {
 }
 
 div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .sub-title {
-  color: #fff;
 }
 @media only screen and (max-width: 1499px) {
   div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .sub-title {
@@ -6386,11 +6385,9 @@ div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .sub-title {
   }
 }
 div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .link-title {
-  color: #fff;
 }
 @media only screen and (max-width: 1499px) {
   div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .link-title {
-    color: #1C1C1C;
   }
 }
 
@@ -6771,7 +6768,7 @@ div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .link-title {
   right: 0;
   width: 41%;
   height: 100%;
-  background-color: #3249B3;
+  background-color: #ffffff;
   z-index: -1;
 }
 @media only screen and (max-width: 1499px) {
