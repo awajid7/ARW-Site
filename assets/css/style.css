@@ -14691,3 +14691,14 @@ div[class*=col]:nth-of-type(3n + 3) .process-item.two::after {
 .blog-widget-thumb-area img {
   width: 100%;
 }
+
+/* === Footer Fixes for Arrow === */
+.footer-list li a {
+  white-space: nowrap;      /* Keeps text on one line */
+  font-weight: normal;      /* Prevents hover bold from shifting text */
+  text-decoration: none;    /* Optional: removes underline */
+}
+
+.footer-list li a:hover {
+  text-decoration: underline; /* Adds a clean hover effect */
+}
