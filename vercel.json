@@ -30,8 +30,8 @@
     { "source": "/service-workflow-automation-support", "destination": "/Service-Workflow Automation Support.html" },
     { "source": "/service", "destination": "/service.html" },
     { "source": "/terms", "destination": "/T&C.html" },
-    { "source": "/team-details-copy-3", "destination": "/team-details - Copy - Copy - Copy.html" },
-    { "source": "/team-details-copy-2", "destination": "/team-details - Copy - Copy.html" },
+    { "source": "/taqi", "destination": "/taqi.html" },
+    { "source": "/faiza", "destination": "/faiza.html" },
     { "source": "/team", "destination": "/team.html" }
   ]
 }
