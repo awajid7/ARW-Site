@@ -3472,7 +3472,6 @@ option {
     top: 15px;
   }
 }
-
  max-height: 60vh; /* Adjust as needed */
     overflow-y: auto;
     scrollbar-width: none; /* For Firefox */
@@ -14702,3 +14701,15 @@ div[class*=col]:nth-of-type(3n + 3) .process-item.two::after {
 .footer-list li a:hover {
   text-decoration: underline; /* Adds a clean hover effect */
 }
+
+.video-icon {
+  pointer-events: none;
+  cursor: default;
+}
+
+.footer-widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
