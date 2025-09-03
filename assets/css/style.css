@@ -6172,7 +6172,6 @@ option {
   position: relative;
 }
 .footer-section.two div[class*=col]:nth-of-type(4n + 4) .footer-widget .title {
-  color: #fff;
 }
 @media only screen and (max-width: 1499px) {
   .footer-section.two div[class*=col]:nth-of-type(4n + 4) .footer-widget .title {
@@ -6181,6 +6180,10 @@ option {
 }
 .footer-section.two div[class*=col]:nth-of-type(4n + 4) .footer-widget .title::after {
   background-color: #fff;
+
+
+
+  
 }
 @media only screen and (max-width: 1499px) {
   .footer-section.two div[class*=col]:nth-of-type(4n + 4) .footer-widget .title::after {
@@ -6378,6 +6381,7 @@ option {
 }
 
 div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .sub-title {
+  color: ##C1caca;
 }
 @media only screen and (max-width: 1499px) {
   div[class*=col]:nth-of-type(3n + 3) .footer-contact-list .sub-title {
