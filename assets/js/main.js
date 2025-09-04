@@ -10,7 +10,6 @@
     });
   });
 
-  $("select").niceSelect(),
 
 // aos
 AOS.init();
