@@ -253,7 +253,7 @@
             border: 2px solid #e1e8ed;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            z-index: 9999;
+            z-index: 1000;
             max-height: 300px;
             overflow-y: auto;
             display: none;
@@ -462,20 +462,7 @@
                 <textarea id="message" name="message" placeholder="Tell us about your project or how we can help you..." required></textarea>
                 <div class="error-message" id="messageError"></div>
             </div>
-                    <div class="form-group">
-                        <div class="checkbox-container" style="display: flex; align-items: center; flex-wrap: nowrap; gap: 6px;">
-                            <input type="checkbox" id="disclaimer" name="disclaimer" required style="flex-shrink: 0;">
-                            <label for="disclaimer" class="checkbox-label" style="margin: 0; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                I agree to the 
-                                <a href="T&C" target="_blank" class="disclaimer-link" style="color:#3249b3; text-decoration:none;">Terms and Conditions</a> 
-                                and 
-                                <a href="privacy" target="_blank" class="disclaimer-link" style="color:#3249b3; text-decoration:none;">Privacy Policy</a>
-                            </label>
-                        </div>
-                        <div class="error-message" id="disclaimerError" style="color:#e74c3c; font-size:0.85rem; margin-top:5px;"></div>
-                    </div>
-                        
-                                
+            
             <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
         </form>
     </div>
@@ -665,8 +652,6 @@
             serviceCategory: 'Please select a service category',
             subService: 'Please select a sub-service',
             message: 'Message is required'
-            disclaimer: 'You must agree to the Terms and Conditions and Privacy Policy'
-
         };
 
         // Real-time validation
