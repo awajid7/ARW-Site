@@ -152,7 +152,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     End Scroll-To-Top
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<style>
+ <style>
         .contact-form-section {
             font-family: 'Poppins', sans-serif;
             max-width: 800px;
@@ -253,7 +253,7 @@
             border: 2px solid #e1e8ed;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
+            z-index: 9999;
             max-height: 300px;
             overflow-y: auto;
             display: none;
@@ -293,6 +293,45 @@
         textarea {
             resize: vertical;
             min-height: 120px;
+        }
+        
+        /* Checkbox Styling */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            min-width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #3498db;
+            flex-shrink: 0;
+        }
+        
+        .checkbox-label {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            cursor: pointer;
+            color: #555;
+            font-weight: 400;
+        }
+        
+        .disclaimer-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .disclaimer-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
         }
         
         .submit-btn {
@@ -387,6 +426,9 @@
 </head>
 <body>
     <div class="contact-form-section">
+        <h2 class="form-title">Get In Touch</h2>
+        <p class="form-subtitle">Let's discuss how we can help grow your business</p>
+        
         <div class="success-message" id="successMessage">
             Thank you! Your message has been sent successfully. We'll get back to you soon.
         </div>
@@ -420,6 +462,16 @@
                 <div class="form-group">
                     <label for="phone">Phone Number <span class="required">*</span></label>
                     <div class="phone-container">
+                        <div class="country-dropdown">
+                            <div class="country-select" id="countrySelect">
+                                <span class="country-flag">🇺🇸</span>
+                                <span class="country-text">United States (+1)</span>
+                            </div>
+                            <div class="country-dropdown-content" id="countryDropdown">
+                                <input type="text" class="country-search" id="countrySearch" placeholder="Search countries...">
+                                <div class="countries-list" id="countriesList"></div>
+                            </div>
+                        </div>
                         <input type="tel" id="phone" name="phone" class="phone-input" placeholder="Phone number" required>
                     </div>
                     <div class="error-message" id="phoneError"></div>
@@ -451,6 +503,20 @@
                 <label for="message">Message <span class="required">*</span></label>
                 <textarea id="message" name="message" placeholder="Tell us about your project or how we can help you..." required></textarea>
                 <div class="error-message" id="messageError"></div>
+            </div>
+            
+            <div class="form-group">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="disclaimer" name="disclaimer" required>
+                    <label for="disclaimer" class="checkbox-label">
+                        I agree to the 
+                        <a href="T&C" target="_blank" class="disclaimer-link">Terms and Conditions</a> 
+                        and 
+                        <a href="privacy" target="_blank" class="disclaimer-link">Privacy Policy</a>
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="error-message" id="disclaimerError"></div>
             </div>
             
             <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
@@ -577,10 +643,13 @@
             const subServiceSelect = document.getElementById('subService');
             const selectedCategory = this.value;
             
+            console.log('Service category changed to:', selectedCategory); // Debug log
+            
             // Clear existing options
             subServiceSelect.innerHTML = '<option value="">Select a sub-service</option>';
             
             if (selectedCategory && subServices[selectedCategory]) {
+                console.log('Enabling sub-service for:', selectedCategory); // Debug log
                 subServiceSelect.disabled = false;
                 subServices[selectedCategory].forEach(service => {
                     const option = document.createElement('option');
@@ -588,18 +657,34 @@
                     option.textContent = service;
                     subServiceSelect.appendChild(option);
                 });
+                console.log('Sub-services added:', subServices[selectedCategory]); // Debug log
             } else {
+                console.log('Disabling sub-service'); // Debug log
                 subServiceSelect.disabled = true;
             }
             
-            // Clear any previous validation errors
+            // Clear any previous validation errors for sub-service
             hideError('subService');
         });
 
         // Validation functions
         function validateField(fieldId, validator, errorMessage) {
             const field = document.getElementById(fieldId);
-            const value = field.value.trim();
+            let value;
+            
+            if (fieldId === 'disclaimer') {
+                value = field.checked;
+            } else if (fieldId === 'subService') {
+                // Special handling for sub-service: check if it's enabled and has a value
+                if (field.disabled) {
+                    // If sub-service is disabled, it means no main category is selected
+                    // This should be caught by the serviceCategory validation
+                    return true;
+                }
+                value = field.value.trim();
+            } else {
+                value = field.value.trim();
+            }
             
             if (!validator(value)) {
                 showError(fieldId, errorMessage);
@@ -614,13 +699,21 @@
             const errorElement = document.getElementById(fieldId + 'Error');
             errorElement.textContent = message;
             errorElement.style.display = 'block';
-            document.getElementById(fieldId).style.borderColor = '#e74c3c';
+            
+            const field = document.getElementById(fieldId);
+            if (fieldId !== 'disclaimer') {
+                field.style.borderColor = '#e74c3c';
+            }
         }
 
         function hideError(fieldId) {
             const errorElement = document.getElementById(fieldId + 'Error');
             errorElement.style.display = 'none';
-            document.getElementById(fieldId).style.borderColor = '#e1e8ed';
+            
+            const field = document.getElementById(fieldId);
+            if (fieldId !== 'disclaimer') {
+                field.style.borderColor = '#e1e8ed';
+            }
         }
 
         // Validators
@@ -631,7 +724,8 @@
             phone: (value) => /^\d{6,15}$/.test(value.replace(/\s+/g, '')),
             serviceCategory: (value) => value !== '',
             subService: (value) => value !== '',
-            message: (value) => value.length >= 1
+            message: (value) => value.length >= 1,
+            disclaimer: (value) => value === true
         };
 
         const errorMessages = {
@@ -641,22 +735,30 @@
             phone: 'Please enter a valid phone number (6-15 digits)',
             serviceCategory: 'Please select a service category',
             subService: 'Please select a sub-service',
-            message: 'Message is required'
+            message: 'Message is required',
+            disclaimer: 'You must agree to the Terms and Conditions and Privacy Policy'
         };
 
         // Real-time validation
         Object.keys(validators).forEach(fieldId => {
             const field = document.getElementById(fieldId);
             if (field) {
-                field.addEventListener('blur', () => {
-                    validateField(fieldId, validators[fieldId], errorMessages[fieldId]);
-                });
-                
-                field.addEventListener('input', () => {
-                    if (field.style.borderColor === 'rgb(231, 76, 60)') {
+                if (fieldId === 'disclaimer') {
+                    // Special handling for checkbox
+                    field.addEventListener('change', () => {
                         validateField(fieldId, validators[fieldId], errorMessages[fieldId]);
-                    }
-                });
+                    });
+                } else {
+                    field.addEventListener('blur', () => {
+                        validateField(fieldId, validators[fieldId], errorMessages[fieldId]);
+                    });
+                    
+                    field.addEventListener('input', () => {
+                        if (field.style.borderColor === 'rgb(231, 76, 60)') {
+                            validateField(fieldId, validators[fieldId], errorMessages[fieldId]);
+                        }
+                    });
+                }
             }
         });
 
@@ -670,9 +772,29 @@
             
             // Validate all fields
             let isValid = true;
+            
+            // Validate each field individually
             Object.keys(validators).forEach(fieldId => {
-                if (!validateField(fieldId, validators[fieldId], errorMessages[fieldId])) {
-                    isValid = false;
+                if (fieldId === 'subService') {
+                    // Special validation for sub-service
+                    const subServiceField = document.getElementById('subService');
+                    const serviceCategoryField = document.getElementById('serviceCategory');
+                    
+                    if (serviceCategoryField.value !== '' && subServiceField.value === '') {
+                        // Main category is selected but sub-service is not
+                        showError('subService', errorMessages['subService']);
+                        isValid = false;
+                    } else if (serviceCategoryField.value === '') {
+                        // Main category is not selected, this will be caught by serviceCategory validation
+                        hideError('subService');
+                    } else {
+                        // Both are selected correctly
+                        hideError('subService');
+                    }
+                } else {
+                    if (!validateField(fieldId, validators[fieldId], errorMessages[fieldId])) {
+                        isValid = false;
+                    }
                 }
             });
             
@@ -688,6 +810,10 @@
                 const field = document.getElementById(fieldId);
                 formData.append(fieldId, field.value.trim());
             });
+            
+            // Add disclaimer acceptance
+            const disclaimerField = document.getElementById('disclaimer');
+            formData.append('disclaimer', disclaimerField.checked ? 'Yes' : 'No');
             
             // Add country code
             formData.append('countryCode', selectedCountry.code);
@@ -730,7 +856,6 @@
             initCountryDropdown();
         });
     </script>
-
 
 
 
